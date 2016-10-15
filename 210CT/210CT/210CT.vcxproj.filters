@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Global">
       <UniqueIdentifier>{256afbf6-90cf-4846-9262-701e5a7581a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Task 2">
+      <UniqueIdentifier>{28e3a528-48fa-4488-b955-720b79db3f9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,10 +30,16 @@
     <ClCompile Include="Task1\Task1.cpp">
       <Filter>Source Files\Task 1</Filter>
     </ClCompile>
+    <ClCompile Include="Task2\Task2.cpp">
+      <Filter>Source Files\Task 2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task1\Task1.h">
       <Filter>Source Files\Task 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Task2\Task2.h">
+      <Filter>Source Files\Task 2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
