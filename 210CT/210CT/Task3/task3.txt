@@ -1,0 +1,69 @@
+a.
+FUNCTION CommonElements(string_n, string_m)
+	//Inputs:
+	//string_n A string of integer elements (n elements long)
+	//string_m A string of integer elements (m elements long)
+			
+	output <- list to store integer outputs
+	
+	FOR EACH number_n IN string_n DO
+		FOR EACH number_m IN string_m DO
+			IF number_n = number_m THEN
+				Add (unique) entry for number_n to output
+			END IF
+		END FOR
+	END FOR
+
+	RETURN output
+END FUNCTION
+
+b.
+FUNCTION UniqueEntries(string_n, string_m)
+	//Inputs:
+	//string_n A string of integer elements (n elements long)
+	//string_m A string of integer elements (m elements long)
+
+	map <- a map/dictionary to store a integer:key and integer:value
+
+	FOR EACH number IN string_n AND string_m DO
+		IF number IS KEY IN map THEN
+			map[number] <- map[number] + 1
+		ELSE
+			map[number] <- 1
+		END IF
+	END FOR
+
+	output <- list to store integer outputs
+
+	FOR EACH KEY key IN map DO
+		Add entry for key to output
+	END FOR
+
+	RETURN output
+END FUNCTION
+
+c.
+FUNCTION Difference(string_n, string_m)	
+	//Inputs:
+	//string_n A string of integer elements (n elements long)
+	//string_m A string of integer elements (m elements long)
+
+	output <- list to store integer outputs initialized with values of string_n
+
+	FOR EACH number IN string_m DO
+		IF number IN output DO
+			Remove number from output
+		END IF
+	END FOR
+	
+	RETURN output
+END FUNCTION
+
+
+
+a. has an O(n^2)
+b. has an O(n)
+c. has an O(n)
+
+However this is refering to how they scale and not how fast they are.
+This is also not taking into consideration the big O of language specific task e.g. "Add (unique) entry for number_n to output"
