@@ -1,0 +1,34 @@
+/**
+TASK (Advanced)
+
+Write the pseudocode for a recursive program to generate the Cartesian product
+(product set, direct product, cross product) of n sets.
+**/
+
+
+FUNCTION CARTESIAN_PRODUCT(set_list)
+	//set_list are sets on which the cartesian product will be performed of size n
+	
+	reversed_list <- reverse order of set_list //As setA*setB is not commutative and needs to be done from last element e.g. A*B*C*D = A*(B*(C*D))
+	current_total <- reversed_list[1] // Store the current total of the cartesian product
+
+	FOR i <- 2 TO Length(set_list) DO
+		//reversed_list[i] * current_total is written as A*B=result for better readability
+		A <- reversed_list[i]
+		B <- current_total		
+		result <- to store result A*B(Must be in this scope/namespace)
+		
+		FOR EACH a_element IN A DO
+			FOR EACH b_element IN B DO
+				add subset made of (A U B) to result
+			END FOR
+		END FOR
+
+		current_total <- result
+
+	END FOR
+
+	RETURN current_total
+
+END FUNCTION
+			
