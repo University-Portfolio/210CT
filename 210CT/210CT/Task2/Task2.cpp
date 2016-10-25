@@ -24,6 +24,7 @@ void TASK_2::Execute()
 	std::cout << "A:\n" << m0 << "\n";
 	std::cout << "B:\n" << m1 << "\n";
 	std::cout << "A*B=\n" << *(m0*m1) << "\n";
+	std::cout << "A*3=\n" << *(m0*3) << "\n";
 	std::cout << "A sparse? " << (m0.IsSparse() ? "True" : "False") << "\n";
 	std::cout << "B sparse? " << (m1.IsSparse() ? "True" : "False") << "\n";
 	std::cout << "==================================================\n";
@@ -147,6 +148,21 @@ void Matrix::operator*=(Matrix& other)
 			}
 			raw_values[x][y] = value;
 		}
+}
+
+Matrix* Matrix::operator*(float factor)
+{
+	Matrix* out = new Matrix(width, height);
+	for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
+			(*out)[x][y] = raw_values[x][y] * factor;
+	return out;
+}
+void Matrix::operator*=(float factor)
+{
+	for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
+			raw_values[x][y] *= factor;
 }
 
 Matrix::operator const char *()

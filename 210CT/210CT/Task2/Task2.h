@@ -33,10 +33,12 @@ namespace TASK_2
 		inline Matrix* operator+(Matrix&);
 		inline Matrix* operator-(Matrix&);
 		inline Matrix* operator*(Matrix&);
+		inline Matrix* operator*(float);
 
 		inline void operator+=(Matrix&);
 		inline void operator-=(Matrix&);
 		inline void operator*=(Matrix&);
+		inline void operator*=(float);
 
 		operator const char*();
 
