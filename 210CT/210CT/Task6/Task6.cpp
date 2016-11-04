@@ -5,7 +5,7 @@
 #include <time.h>
 #include <list>
 
-#define CUBE_SIZE_MAX 100
+#define CUBE_SIZE_MAX 1000
 
 
 using namespace TASK_6;
