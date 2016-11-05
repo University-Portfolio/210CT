@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Task 6">
       <UniqueIdentifier>{2bf68134-a2e6-460e-b8b8-a8c969adf6ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Task 7">
+      <UniqueIdentifier>{3a899edc-4001-48b5-b1a5-5acf31ad79b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Task 5">
+      <UniqueIdentifier>{ebfdad4a-991e-45ec-8c8c-03852679ffab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="Task6\Task6.cpp">
       <Filter>Source Files\Task 6</Filter>
     </ClCompile>
+    <ClCompile Include="Task7\Task7.cpp">
+      <Filter>Source Files\Task 7</Filter>
+    </ClCompile>
+    <ClCompile Include="Task5\Task5.cpp">
+      <Filter>Source Files\Task 5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task1\Task1.h">
@@ -52,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="Definitions.h">
       <Filter>Source Files\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Task7\Task7.h">
+      <Filter>Source Files\Task 7</Filter>
+    </ClInclude>
+    <ClInclude Include="Task5\Task5.h">
+      <Filter>Source Files\Task 5</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
