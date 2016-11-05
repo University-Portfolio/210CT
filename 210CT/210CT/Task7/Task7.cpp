@@ -142,17 +142,20 @@ void TASK_7::Execute()
 	std::cout << "Input height of maze: ";
 	std::cin >> m;
 
-	//std::cout << "Input path of file contain maze: " << "\n(Example maze file for n:4, m:5)\n";
-	//std::cout << "\t0100\n";
-	//std::cout << "\t1101\n";
-	//std::cout << "\t0111\n";
-	//std::cout << "\t0100\n";
-	//std::cout << "\t1110\n";
+	std::cout << "Input path of file contain maze: " << "\n(Example maze file for n:4, m:5)\n";
+	std::cout << "\t0100\n";
+	std::cout << "\t1101\n";
+	std::cout << "\t0111\n";
+	std::cout << "\t0100\n";
+	std::cout << "\t1110\n";
+	
+	std::cin.get();
+	std::getline(std::cin, file_path);
 
 	while (!ReadFile(file_path.c_str(), raw_input))
 	{
-		std::cout << "Invalid file path!\n";
-		//PLEASE INPUT A CORRECT FILE PATH
+		std::cout << "Invalid file path!\nInput path of file contain maze:\n";
+		std::getline(std::cin, file_path);
 	}
 
 	Maze maze(n, m);
