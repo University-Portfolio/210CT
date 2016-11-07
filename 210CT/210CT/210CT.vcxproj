@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Task10\Task10.cpp" />
     <ClCompile Include="Task1\Task1.cpp" />
     <ClCompile Include="Task2\Task2.cpp" />
     <ClCompile Include="Task5\Task5.cpp" />
@@ -129,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="Task10\Task10.h" />
     <ClInclude Include="Task1\Task1.h" />
     <ClInclude Include="Task2\Task2.h" />
     <ClInclude Include="Task5\Task5.h" />

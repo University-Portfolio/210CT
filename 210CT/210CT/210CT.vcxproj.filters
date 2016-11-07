@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Task 9">
       <UniqueIdentifier>{4c4595d6-e9bb-47d7-8de5-c87b75acd67d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Task 10">
+      <UniqueIdentifier>{078d3906-bef8-4e66-a756-f60108fa6c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="Task9\Task9.cpp">
       <Filter>Source Files\Task 9</Filter>
     </ClCompile>
+    <ClCompile Include="Task10\Task10.cpp">
+      <Filter>Source Files\Task 10</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task1\Task1.h">
@@ -88,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Task9\Task9.h">
       <Filter>Source Files\Task 9</Filter>
+    </ClInclude>
+    <ClInclude Include="Task10\Task10.h">
+      <Filter>Source Files\Task 10</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

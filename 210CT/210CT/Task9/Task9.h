@@ -10,7 +10,7 @@ The resulted matrix will be displayed in natural form.
 
 namespace TASK_9
 {
-	struct Matrix //Squares
+	class Matrix //Squares
 	{
 	private:
 		float** raw_data;
