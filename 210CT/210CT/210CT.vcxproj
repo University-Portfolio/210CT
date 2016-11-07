@@ -125,6 +125,7 @@
     <ClCompile Include="Task6\Task6.cpp" />
     <ClCompile Include="Task7\Task7.cpp" />
     <ClCompile Include="Task8\Task8.cpp" />
+    <ClCompile Include="Task9\Task9.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Definitions.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Task6\Task6.h" />
     <ClInclude Include="Task7\Task7.h" />
     <ClInclude Include="Task8\Task8.h" />
+    <ClInclude Include="Task9\Task9.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
