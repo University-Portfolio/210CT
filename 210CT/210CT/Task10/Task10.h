@@ -12,7 +12,7 @@ Notes: Read the number of children, the childrens' names and the one starting to
 
 namespace TASK_10
 {
-	struct Child 
+	class Child 
 	{
 	private:
 		std::string child;

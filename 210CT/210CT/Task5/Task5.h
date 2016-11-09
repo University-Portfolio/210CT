@@ -14,7 +14,7 @@ namespace TASK_5
 {
 	void Execute();
 
-	struct LinearLine 
+	class LinearLine 
 	{
 	public:
 		const float gradient;

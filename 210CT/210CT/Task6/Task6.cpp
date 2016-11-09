@@ -10,7 +10,7 @@
 
 using namespace TASK_6;
 
-struct Node;
+class Node;
 typedef std::list<Cube> Cubes;
 typedef std::list<Node> Nodes;
 typedef std::list<Node*> PtrNodes;
@@ -19,8 +19,9 @@ typedef std::list<Node*> PtrNodes;
 Node is per cube and stores all cubes that could come before or after.
 
 **/
-struct Node 
+class Node 
 {
+public:
 	const Cube cube;
 
 	//Values used during Dijkstra's 

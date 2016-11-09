@@ -39,8 +39,9 @@ namespace TASK_6
 	};
 
 
-	struct Cube 
+	class Cube 
 	{
+	public:
 		float size;
 		Colour colour;
 

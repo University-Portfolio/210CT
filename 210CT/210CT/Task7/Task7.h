@@ -17,8 +17,9 @@ namespace TASK_7
 {
 	void Execute();
 
-	struct Coord
+	class Coord
 	{
+	public:
 		int x, y;
 
 		Coord() : x(0), y(0) {};
