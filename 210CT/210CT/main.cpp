@@ -8,10 +8,11 @@
 #include "Task8\Task8.h"
 #include "Task9\Task9.h"
 #include "Task10\Task10.h"
+#include "Task11\Task11.h"
 
 int main(char** arg_v, int arg_c)
 {
-	TASK_10::Execute();
+	TASK_11::Execute();
 
 	std::cout << "Done!\n";
 	while (true) {}
