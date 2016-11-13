@@ -1,6 +1,7 @@
 #include "IO.h"
 #include <iostream>
 #include <limits>
+#include <stdio.h>
 
 namespace IO
 {
@@ -13,18 +14,21 @@ namespace IO
 
 using namespace IO;
 
+inline void PrintStartLine() { std::cout << g_Task << ":~$ "; }
 
 float In::ReadFloat()
 {
 	float in;
 	std::cin >> in;
+	PrintStartLine();
 
 	while (std::cin.fail())
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Invalid input\n";
+		IO::out << "Invalid input\n";
 		std::cin >> in;
+		PrintStartLine();
 	}
 	return in;
 }
@@ -35,7 +39,7 @@ int In::ReadInt()
 
 	while (in != int(in))
 	{
-		std::cout << "Invalid input\n";
+		IO::out << "Invalid input\n";
 		in = ReadFloat();
 	}
 
@@ -44,8 +48,12 @@ int In::ReadInt()
 
 std::string In::ReadString()
 {
-	std::string in;
-	std::getline(std::cin, in);
+	std::string in = "";
+
+	while (!in.length()) //To deal with the left overs from last time
+		std::getline(std::cin, in);
+
+	PrintStartLine();
 	return in;
 }
 
@@ -55,7 +63,7 @@ char In::ReadChar()
 
 	while (in.length() != 1)
 	{
-		std::cout << "Invalid input\n";
+		IO::out << "Invalid input\n";
 		in = ReadString();
 	}
 
@@ -65,95 +73,63 @@ char In::ReadChar()
 
 Out& Out::operator<<(const int i)
 {
+	if(!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	std::cout << i;
 	return (*this);
 }
 
 Out& Out::operator<<(const unsigned int i)
 {
+	if (!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	std::cout << i;
 	return (*this);
 }
 
 Out& Out::operator<<(const float i)
 {
+	if (!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	std::cout << i;
 	return (*this);
 }
 
 Out& Out::operator<<(const char i)
 {
+	if (!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	std::cout << i;
 
 	if (i == '\n')
-		std::cout << g_Task << ":~$ ";
+		PrintStartLine();
 	return (*this);
 }
 
 Out& Out::operator<<(const std::string i)
 {
+	if (!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	for (const char& c : i)
 	{
 		std::cout << c;
 		if (c == '\n')
-			std::cout << g_Task << ":~$ ";
+			PrintStartLine();
 	}
 	return (*this);
 }
 
 Out& Out::operator<<(const char* i)
 {
+	if (!g_DebugLog && this == &IO::out_debug)
+		return (*this);
+
 	std::string a = i;
 	(*this) << a;
-	return (*this);
-}
-
-
-
-Out& OutDebug::operator<<(const int i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
-	return (*this);
-}
-
-Out& OutDebug::operator<<(const unsigned int i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
-	return (*this);
-}
-
-Out& OutDebug::operator<<(const float i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
-	return (*this);
-}
-
-Out& OutDebug::operator<<(const char i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
-	return (*this);
-}
-
-Out& OutDebug::operator<<(const std::string i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
-	return (*this);
-}
-
-Out& OutDebug::operator<<(const char* i)
-{
-	if (!IO::g_DebugLog)
-		return (*this);
-	Out::operator<<(i);
 	return (*this);
 }

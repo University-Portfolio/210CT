@@ -22,24 +22,12 @@ namespace IO
 	class Out
 	{
 	public:
-		virtual Out& operator<<(const int i);
-		virtual Out& operator<<(const unsigned int i);
-		virtual Out& operator<<(const float i);
-		virtual Out& operator<<(const char i);
-		virtual Out& operator<<(const char* i);
-		virtual Out& operator<<(const std::string i);
-
-	};
-
-	class OutDebug : public Out
-	{
-	public:
-		virtual Out& operator<<(const int i) override;
-		virtual Out& operator<<(const unsigned int i) override;
-		virtual Out& operator<<(const float i) override;
-		virtual Out& operator<<(const char i) override;
-		virtual Out& operator<<(const char* i) override;
-		virtual Out& operator<<(const std::string i) override;
+		Out& operator<<(const int i);
+		Out& operator<<(const unsigned int i);
+		Out& operator<<(const float i);
+		Out& operator<<(const char i);
+		Out& operator<<(const char* i);
+		Out& operator<<(const std::string i);
 
 	};
 
