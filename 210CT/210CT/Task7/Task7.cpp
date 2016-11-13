@@ -1,8 +1,7 @@
 #include "Task7.h"
-#include "../Definitions.h"
+#include "../IO.h"
 
 #include <fstream>
-#include <iostream>
 
 
 using namespace TASK_7;
@@ -11,46 +10,46 @@ using namespace TASK_7;
 void Path::Print(Maze& maze)
 {
 	for (int i = 0; i < size; i++)
-		std::cout << "(" << (stack[i].x + 1) << "," << (maze.height - stack[i].y) << ")->";
-	std::cout << '\n';
+		IO::out << "(" << (stack[i].x + 1) << "," << (maze.height - stack[i].y) << ")->";
+	IO::out << '\n';
 }
 
 void Maze::Print(const bool print_person /*= true */, Path* path /*= nullptr*/) const
 {
 	//Coordinate
-	std::cout << ' ';
+	IO::out << ' ';
 	for (int y = 0; y < width - 1; y++)
-		std::cout << ' ';
-	std::cout << "|(" << width << "," << height << ")\n";
+		IO::out << ' ';
+	IO::out << "|(" << width << "," << height << ")\n";
 
 	//Line
-	std::cout << '+';
+	IO::out << '+';
 	for (int y = 0; y < width; y++)
-		std::cout << '-';
-	std::cout << "+\n";
+		IO::out << '-';
+	IO::out << "+\n";
 
 	//Grid
 	for (int y = 0; y < width; y++)
 	{
-		std::cout << '|';
+		IO::out << '|';
 
 		for (int x = 0; x < height; x++)
 		{
 			const bool is_path = path ? path->Contains(Coord(x, y)) : false;
-			std::cout << (print_person && (person.x == x && person.y == y) ? '$' : walls[x][y] ? '#' : is_path ? '~' : ' ');
+			IO::out << (print_person && (person.x == x && person.y == y) ? '$' : walls[x][y] ? '#' : is_path ? '~' : ' ');
 		}
 
-		std::cout << "|\n";
+		IO::out << "|\n";
 	}
 
 	//Line
-	std::cout << '+';
+	IO::out << '+';
 	for (int y = 0; y < width; y++)
-		std::cout << '-';
-	std::cout << "+\n";
+		IO::out << '-';
+	IO::out << "+\n";
 
 	//Coordinate
-	std::cout << " |(1,1)\n";
+	IO::out << " |(1,1)\n";
 }
 
 void Maze::Parse(const std::string& raw_input)
@@ -90,11 +89,11 @@ void Maze::PrintAllPaths()
 				path.Push(coord);
 				if (IsExit(coord))
 				{
-					std::cout << "=================================\n";
-					LOG("Solution found at (" << coord.x << "," << coord.y << ")");
+					IO::out << "=================================\n";
+					IO::out_debug << "Solution found at (" << coord.x << "," << coord.y << ")\n";
 					Print(true, &path);
 					path.Print(*this);
-					std::cout << '\n';
+					IO::out << '\n';
 				}
 				moved = true;
 				break;
@@ -108,7 +107,7 @@ void Maze::PrintAllPaths()
 		}
 	}
 
-	std::cout << "Searched all paths.\n";
+	IO::out << "Searched all paths.\n";
 }
 
 bool ReadFile(const char* path, std::string& raw_output)
@@ -136,26 +135,25 @@ void TASK_7::Execute()
 
 	int n, m;
 
-	std::cout << "Input width of maze: ";
-	std::cin >> n;
+	IO::out << "Input width of maze: ";
+	IO::in >> n;
 
-	std::cout << "Input height of maze: ";
-	std::cin >> m;
+	IO::out << "Input height of maze: ";
+	IO::in >> m;
 
-	std::cout << "Input path of file contain maze: " << "\n(Example maze file for n:4, m:5)\n";
-	std::cout << "\t0100\n";
-	std::cout << "\t1101\n";
-	std::cout << "\t0111\n";
-	std::cout << "\t0100\n";
-	std::cout << "\t1110\n";
+	IO::out << "Input path of file contain maze: " << "\n(Example maze file for n:4, m:5)\n";
+	IO::out << "\t0100\n";
+	IO::out << "\t1101\n";
+	IO::out << "\t0111\n";
+	IO::out << "\t0100\n";
+	IO::out << "\t1110\n";
 	
-	std::cin.get();
-	std::getline(std::cin, file_path);
+	IO::in >> file_path;
 
 	while (!ReadFile(file_path.c_str(), raw_input))
 	{
-		std::cout << "Invalid file path!\nInput path of file contain maze:\n";
-		std::getline(std::cin, file_path);
+		IO::out << "Invalid file path!\nInput path of file contain maze:\n";
+		IO::in >> file_path;
 	}
 
 	Maze maze(n, m);
@@ -164,20 +162,20 @@ void TASK_7::Execute()
 
 
 	Coord person;
-	std::cout << "Please input the coordinates of the person:\n";
+	IO::out << "Please input the coordinates of the person:\n";
 
 	do {
-		std::cout << "x:";
-		std::cin >> person.x;
-		std::cout << "y:";
-		std::cin >> person.y;
+		IO::out << "x:";
+		IO::in >> person.x;
+		IO::out << "y:";
+		IO::in >> person.y;
 		
 		//Convert x,y to correct indices
 		person.x--;
 		person.y = maze.height - person.y;
 		
 		if(!maze.IsValid(person))
-			std::cout << "Invalid input! (The person cannot be placed in a wall)\nPlease input the coordinates of the person:\n";
+			IO::out << "Invalid input! (The person cannot be placed in a wall)\nPlease input the coordinates of the person:\n";
 		else
 			break;
 	} while (true);

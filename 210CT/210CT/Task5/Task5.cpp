@@ -1,6 +1,5 @@
 #include "Task5.h"
-#include "../Definitions.h"
-#include <iostream>
+#include "../IO.h"
 
 
 using namespace TASK_5;
@@ -20,22 +19,22 @@ inline float modulus(const float a)
 
 void TASK_5::Execute() 
 {
-	std::cout << "For an + b = cn + d\n";
+	IO::out << "For an + b = cn + d\n";
 	float a, b, c, d;
 	
-	std::cout << "Input coefficient for a: ";
-	std::cin >> a;
-	std::cout << "Input coefficient for b: ";
-	std::cin >> b;
-	std::cout << "Input coefficient for c: ";
-	std::cin >> c;
-	std::cout << "Input coefficient for d: ";
-	std::cin >> d;
+	IO::out << "Input coefficient for a: ";
+	IO::in >> a;
+	IO::out << "Input coefficient for b: ";
+	IO::in >> b;
+	IO::out << "Input coefficient for c: ";
+	IO::in >> c;
+	IO::out << "Input coefficient for d: ";
+	IO::in >> d;
 
 	LinearLine lhs(a, b);
 	LinearLine rhs(c, d);
 
-	LOG("Expected n:" << (d - b) / (a - c));
+	IO::out_debug << "Expected n:" << (d - b) / (a - c) << '\n';
 
 	//Determine starting range
 	//Gradients of both equations
@@ -44,7 +43,7 @@ void TASK_5::Execute()
 
 	if (g0 == 0.0f && g1 == 0.0f) 
 	{
-		std::cout << "Error: gradients of both equations are 0, " << (b == d ? "They cross infinitly\n" : "They never cross\n");
+		IO::out << "Error: gradients of both equations are 0, " << (b == d ? "They cross infinitly\n" : "They never cross\n");
 		return;
 	}
 
@@ -55,7 +54,7 @@ void TASK_5::Execute()
 	
 	while (step)
 	{
-		std::cout << "Testing " << start_range << " to " << end_range << "(step:" << step  << ")\n";
+		IO::out << "Testing " << start_range << " to " << end_range << "(step:" << step  << ")\n";
 
 		const float start_lhs = lhs.f(start_range);
 		const float end_lhs = lhs.f(end_range);
@@ -67,9 +66,9 @@ void TASK_5::Execute()
 		const float end_dif = end_lhs - end_rhs;
 
 
-		LOG("\tlhs start:" << start_lhs << " end:" << end_lhs);
-		LOG("\trhs start:" << start_rhs << " end:" << end_rhs);
-		LOG("\tdif start:" << start_dif << " end:" << end_dif);
+		IO::out_debug << "\tlhs start:" << start_lhs << " end:" << end_lhs << '\n';
+		IO::out_debug << "\trhs start:" << start_rhs << " end:" << end_rhs << '\n';
+		IO::out_debug << "\tdif start:" << start_dif << " end:" << end_dif << '\n';
 				
 		if (modulus(start_dif) < modulus(end_dif))
 			end_range -= step;
@@ -81,10 +80,10 @@ void TASK_5::Execute()
 
 	const int solution = start_range;
 
-	LOG("Solution: " << solution);
+	IO::out_debug << "Solution: " << solution << '\n';
 
 	if (rhs.f(solution - 1) > rhs.f(solution + 1))
-		std::cout << "lhs becomes more efficient after " << solution << std::endl;
+		IO::out << "lhs becomes more efficient after " << solution << '\n';
 	else
-		std::cout << "rhs becomes more efficient after " << solution << std::endl;
+		IO::out << "rhs becomes more efficient after " << solution << '\n';
 }

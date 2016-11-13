@@ -1,25 +1,25 @@
 #include "Task1.h"
-#include <iostream>
+#include "../IO.h"
 
 void TASK_1::Execute()
 {
 	int lay_rate, hatch_time, total_days;
 
-	std::cout << "Eggs per day: ";
-	std::cin >> lay_rate;
+	IO::out << "Eggs per day: ";
+	IO::in >> lay_rate;
 
-	std::cout << "Egg hatch time: ";
-	std::cin >> hatch_time;
+	IO::out << "Egg hatch time: ";
+	IO::in >> hatch_time;
 
-	std::cout << "For how many days? ";
-	std::cin >> total_days;
+	IO::out << "For how many days? ";
+	IO::in >> total_days;
 
 	Population aliens(1, hatch_time, lay_rate);
 
 	for (int i = 1; i <= total_days; i++)
 	{
 		aliens.LayEggs();
-		std::cout << "Day " << i << "\tPopulation: " << aliens.total << std::endl;
+		IO::out << "Day " << i << "\tPopulation: " << aliens.total << '\n';
 	}
 }
 

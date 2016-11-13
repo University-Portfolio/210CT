@@ -1,5 +1,5 @@
 #include "Task9.h"
-#include <iostream>
+#include "../IO.h"
 
 using namespace TASK_9;
 
@@ -76,41 +76,41 @@ void Matrix::Print()
 {
 	for (int y = 0; y < size; y++)
 	{
-		std::cout << (y ? y == size - 1 ? "\\" : "|" : "/");
+		IO::out << (y ? y == size - 1 ? "\\" : "|" : "/");
 		for (int x = 0; x < size; x++)
 		{
 			if (x)
-				std::cout << ",";
-			std::cout << raw_data[x][y];
+				IO::out << ",";
+			IO::out << raw_data[x][y];
 		}
-		std::cout << (y ? y == size - 1 ? "/" : "|\n" : "\\\n");
+		IO::out << (y ? y == size - 1 ? "/" : "|\n" : "\\\n");
 	}
-	std::cout << '\n';
+	IO::out << '\n';
 }
 
 void TASK_9::Execute() 
 {
-	std::cout << "Input matrix size: ";
+	IO::out << "Input matrix size: ";
 	int size;
-	std::cin >> size;
+	IO::in >> size;
 
 	Matrix matrix(size);
 
-	std::cout << "Input values in row-column format: \n";
+	IO::out << "Input values in row-column format: \n";
 	for (int y = 0; y<size; y++)
 		for (int x = 0; x < size; x++)
 		{
 			int value;
-			std::cin >> value;
+			IO::in >> value;
 			matrix[x][y] = value;
 		}
 
 	matrix.Print();
 
 
-	std::cout << "Input power to raise matrix to: ";
+	IO::out << "Input power to raise matrix to: ";
 	int power;
-	std::cin >> power;
+	IO::in >> power;
 	matrix ^= power;
 
 	matrix.Print();

@@ -1,5 +1,5 @@
 #include "Task10.h"
-#include <iostream>
+#include "../IO.h"
 
 using namespace TASK_10;
 
@@ -7,20 +7,19 @@ using namespace TASK_10;
 void TASK_10::Execute() 
 {
 	int n;
-	std::cout << "Input number of children: ";
-	std::cin >> n;
+	IO::out << "Input number of children: ";
+	IO::in >> n;
 	Child* root = nullptr;
 
 	//Populate
 	{
 		Child* last_child = nullptr;
 
-		std::cin.get(); //Clear
-		std::cout << "Input names of each child:\n";
+		IO::out << "Input names of each child:\n";
 		for (int i = 0; i < n; i++)
 		{
 			std::string name;
-			std::getline(std::cin, name);
+			IO::in >> name;
 
 			if (last_child)
 				last_child = new Child(name, last_child);
@@ -36,15 +35,15 @@ void TASK_10::Execute()
 	{
 		Child* start = root;
 
-		std::cout << "From 1-" << n << ", which child should start? ";
+		IO::out << "From 1-" << n << ", which child should start? ";
 		int index;
-		std::cin >> index;
+		IO::in >> index;
 		index--;
 
 		for (;index > 0;index--)
 			start = start->GetNext();
 
-		std::cout << start->GetName() << " starts\n";
+		IO::out << start->GetName() << " starts\n";
 
 
 		Child* current = start;
@@ -58,7 +57,7 @@ void TASK_10::Execute()
 					break;
 				else
 				{
-					std::cout << '\t' << current->GetName() << " goes out\n";
+					IO::out << '\t' << current->GetName() << " goes out\n";
 					count = 0;
 					current->Remove();
 					delete current;
@@ -72,7 +71,7 @@ void TASK_10::Execute()
 			}
 		}
 
-		std::cout << current->GetName() << " wins!\n";
+		IO::out << current->GetName() << " wins!\n";
 		delete start;
 		delete current;
 	}

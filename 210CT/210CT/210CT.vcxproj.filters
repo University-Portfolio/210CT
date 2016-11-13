@@ -75,6 +75,9 @@
     <ClCompile Include="Task11\Task11.cpp">
       <Filter>Source Files\Task 11</Filter>
     </ClCompile>
+    <ClCompile Include="IO.cpp">
+      <Filter>Source Files\Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task1\Task1.h">
@@ -85,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="Task6\Task6.h">
       <Filter>Source Files\Task 6</Filter>
-    </ClInclude>
-    <ClInclude Include="Definitions.h">
-      <Filter>Source Files\Global</Filter>
     </ClInclude>
     <ClInclude Include="Task7\Task7.h">
       <Filter>Source Files\Task 7</Filter>
@@ -106,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="Task11\Task11.h">
       <Filter>Source Files\Task 11</Filter>
+    </ClInclude>
+    <ClInclude Include="IO.h">
+      <Filter>Source Files\Global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

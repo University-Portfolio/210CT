@@ -1,7 +1,6 @@
 #include "Task6.h"
-#include "../Definitions.h"
+#include "../IO.h"
 
-#include <iostream>
 #include <time.h>
 #include <list>
 
@@ -99,26 +98,26 @@ void Print(Cubes& cubes, int column_count = 4)
 	int column = 0;
 
 	for (int i = 0; i < column_count; i++)
-		std::cout << "#===============";
-	std::cout << "#\n";
+		IO::out << "#===============";
+	IO::out << "#\n";
 
 	for (int i = 0; i < column_count; i++)
-		std::cout << "#SIZE\tCOLOUR\t";
-	std::cout << "#\n";
+		IO::out << "#SIZE\tCOLOUR\t";
+	IO::out << "#\n";
 
 	for (int i = 0; i < column_count; i++)
-		std::cout << "#===============";
-	std::cout << "#\n";
+		IO::out << "#===============";
+	IO::out << "#\n";
 
 
 	for (Cube c : cubes)
 	{
-		std::cout << "#" << c.size << '\t' << COLOUR::ToString(c.colour) << '\t';
+		IO::out << "#" << c.size << '\t' << COLOUR::ToString(c.colour) << '\t';
 
 		if (column++ == column_count - 1)
 		{
 			column = 0;
-			std::cout << "#\n";
+			IO::out << "#\n";
 		}
 	}
 
@@ -127,15 +126,15 @@ void Print(Cubes& cubes, int column_count = 4)
 	{
 		for (;column < column_count;column++)
 		{
-			std::cout << "#               ";
+			IO::out << "#               ";
 		}
-		std::cout << "#\n";
+		IO::out << "#\n";
 	}
 
 
 	for (int i = 0; i < column_count; i++)
-		std::cout << "#===============";
-	std::cout << "#\n";
+		IO::out << "#===============";
+	IO::out << "#\n";
 }
 
 
@@ -172,7 +171,7 @@ int FindHighestPath(Node* source, Node* sink, Nodes& output)
 	//For pretty printing
 #define NODE(sink) (*sink).cube.size << ":" << COLOUR::ToString((*sink).cube.colour)
 
-	LOG(NODE(source) << " to " << NODE(sink));
+	IO::out_debug << NODE(source) << " to " << NODE(sink) << '\n';
 
 	if (source == sink)
 	{
@@ -190,21 +189,21 @@ int FindHighestPath(Node* source, Node* sink, Nodes& output)
 
 	while (true)
 	{
-		LOG("=======================");
+		IO::out_debug << "=======================\n";
 		current_cheapest_value = 0;
 		current_cheapest = nullptr;
 		current_previous = nullptr;
 
 		for (Node* current_node : set_nodes)
 		{
-			LOG(NODE(current_node) << " possible: " << current_node->above.size());
+			IO::out_debug << NODE(current_node) << " possible: " << current_node->above.size() << '\n';
 
 			for (Node* next_node : current_node->above)
 				if (!next_node->locked)
 				{
 
 					int weight = current_node->working_value;
-					LOG("\t\t" << NODE(next_node) << " " << -weight << "(" << (next_node->cube.size - weight) << ")");
+					IO::out_debug <<  "\t\t" << NODE(next_node) << " " << -weight << "(" << (next_node->cube.size - weight) << ")\n";
 					
 					if (weight < next_node->working_value)
 					{
@@ -231,14 +230,14 @@ int FindHighestPath(Node* source, Node* sink, Nodes& output)
 
 		current_cheapest_value -= current_cheapest->cube.size;
 
-		LOG("\tLocking " << NODE(current_cheapest) << " for " << -current_cheapest_value << " from " << NODE(current_previous));
+		IO::out_debug << "\tLocking " << NODE(current_cheapest) << " for " << -current_cheapest_value << " from " << NODE(current_previous) << '\n';
 		current_cheapest->LockNode(current_previous, current_cheapest_value);
 		set_nodes.push_back(current_cheapest);
 
 		//Solution found
 		if (current_cheapest == sink)
 		{
-			LOG("SOLUTION FOUND (" << current_cheapest_value << ")");
+			IO::out_debug << "SOLUTION FOUND (" << current_cheapest_value << ")\n";
 			break;
 		}
 	}
@@ -251,7 +250,7 @@ int FindHighestPath(Node* source, Node* sink, Nodes& output)
 		output.push_back(*next_node);
 		next_node = next_node->working_previous;
 	}
-	LOG("LEAVING return:" << -current_cheapest_value);
+	IO::out_debug << "LEAVING return:" << -current_cheapest_value << '\n';
 	return -current_cheapest_value;
 }
 
@@ -280,9 +279,9 @@ bool StoreSolution(Cubes& cubes, Cubes& solution, int& solution_amount)
 			sources.push_front(&node);
 	}
 
-	LOG("Found " << sources.size() << " sources");
-	LOG("Found " << sinks.size() << " sinks");
-	LOG("For " << nodes.size() << " nodes");
+	IO::out_debug << "Found " << sources.size() << " sources\n";
+	IO::out_debug << "Found " << sinks.size() << " sinks\n";
+	IO::out_debug << "For " << nodes.size() << " nodes\n";
 
 	//Find all possible paths from all sources to all sinks
 	Nodes highest_path;
@@ -321,13 +320,13 @@ bool StoreSolution(Cubes& cubes, Cubes& solution, int& solution_amount)
 
 void TASK_6::Execute() 
 {
-	std::cout << "How many cubes: ";
+	IO::out << "How many cubes: ";
 	int n;
-	std::cin >> n;
+	IO::in >> n;
 
 	Cubes cubes;
 	RandomlyPopulate(cubes, n);
-	std::cout << "Generated Cubes:\n";
+	IO::out << "Generated Cubes:\n";
 	Print(cubes);
 
 	Cubes solution;
@@ -335,12 +334,12 @@ void TASK_6::Execute()
 
 	if (StoreSolution(cubes, solution, solution_amount))
 	{
-		std::cout << "Solution found of height " << solution_amount << ":\n";
+		IO::out << "Solution found of height " << solution_amount << ":\n";
 		Print(solution, 1);
 	}
 	else
 	{
-		std::cout << "No solution found\n";
+		IO::out << "No solution found\n";
 	}
 
 

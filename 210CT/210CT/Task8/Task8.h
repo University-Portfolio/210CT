@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Definitions.h"
+#include "../IO.h"
 
 /**
 TASK (Advanced)
@@ -18,10 +18,10 @@ namespace TASK_8
 	template<typename Type>
 	void Print(std::vector<Type>& arr)
 	{
-		std::cout << '(';
+		IO::out << '(';
 		for (Type& t : arr)
-			std::cout << t << ',';
-		std::cout << ")\n";
+			IO::out << t << ',';
+		IO::out << ")\n";
 	}
 
 	template<typename Type>

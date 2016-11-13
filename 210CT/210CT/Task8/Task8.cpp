@@ -1,6 +1,6 @@
 #include "Task8.h"
+#include "../IO.h"
 #include <time.h>
-#include <iostream>
 
 
 using namespace TASK_8;
@@ -10,9 +10,9 @@ void TASK_8::Execute()
 {
 	srand(time(nullptr));
 
-	std::cout << "How many integers would you like to be in the array? ";
+	IO::out << "How many integers would you like to be in the array? ";
 	int size;
-	std::cin >> size;
+	IO::in >> size;
 
 	std::vector<int> standard_qs;
 	std::vector<int> partial_qs;
@@ -26,24 +26,24 @@ void TASK_8::Execute()
 		standard_qs.push_back(val);
 		partial_qs.push_back(val);
 	}
-	std::cout << '\n';
+	IO::out << '\n';
 	Print(standard_qs);
-	std::cout << '\n';
+	IO::out << '\n';
 
-	std::cout << "Which sorted index you like to fetch? ";
+	IO::out << "Which sorted index you like to fetch? ";
 	int m;
-	std::cin >> m;
+	IO::in >> m;
 
 	QuickSort(standard_qs, standard_swaps);
-	std::cout << "Standard (Full sort then fetch):\n";
+	IO::out << "Standard (Full sort then fetch):\n";
 	Print(standard_qs);
-	std::cout << '\t' << standard_qs[m] << " with " << standard_swaps << " swaps\n";
+	IO::out << '\t' << standard_qs[m] << " with " << standard_swaps << " swaps\n";
 
-	std::cout << '\n';
+	IO::out << '\n';
 
 	int val = QuickSortSearch(partial_qs, m, partial_swaps);
-	std::cout << "Partial (Prioritize index until in place):\n";
+	IO::out << "Partial (Prioritize index until in place):\n";
 	Print(partial_qs);
-	std::cout << '\t' << val << " with " << partial_swaps << " swaps\n";
+	IO::out << '\t' << val << " with " << partial_swaps << " swaps\n";
 
 }

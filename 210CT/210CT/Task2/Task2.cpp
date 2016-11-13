@@ -1,5 +1,5 @@
 #include "Task2.h"
-#include <iostream>
+#include "../IO.h"
 #include <exception>
 #include <sstream>
 
@@ -20,14 +20,14 @@ void TASK_2::Execute()
 	m1[0][1] = 2;
 	m1[0][2] = 3;
 
-	std::cout << "TEST 1:\n";
-	std::cout << "A:\n" << m0 << "\n";
-	std::cout << "B:\n" << m1 << "\n";
-	std::cout << "A*B=\n" << *(m0*m1) << "\n";
-	std::cout << "A*3=\n" << *(m0*3) << "\n";
-	std::cout << "A sparse? " << (m0.IsSparse() ? "True" : "False") << "\n";
-	std::cout << "B sparse? " << (m1.IsSparse() ? "True" : "False") << "\n";
-	std::cout << "==================================================\n";
+	IO::out << "TEST 1:\n";
+	IO::out << "A:\n" << m0 << "\n";
+	IO::out << "B:\n" << m1 << "\n";
+	IO::out << "A*B=\n" << *(m0*m1) << "\n";
+	IO::out << "A*3=\n" << *(m0*3) << "\n";
+	IO::out << "A sparse? " << (m0.IsSparse() ? "True" : "False") << "\n";
+	IO::out << "B sparse? " << (m1.IsSparse() ? "True" : "False") << "\n";
+	IO::out << "==================================================\n";
 
 	Matrix m2(3, 3);
 	m2[0][0] = 2;
@@ -46,15 +46,15 @@ void TASK_2::Execute()
 	m3[2][0] = 3;
 	m3[2][1] = 1;
 
-	std::cout << "TEST 2:\n";
-	std::cout << "A:\n" << m2 << "\n";
-	std::cout << "B:\n" << m3 << "\n";
-	std::cout << "A+B=\n" << *(m2*m3) << "\n";
-	std::cout << "A-B=\n" << *(m2*m3) << "\n";
-	std::cout << "A*B=\n" << *(m2*m3) << "\n";
-	std::cout << "A sparse? " << (m2.IsSparse() ? "True" : "False") << "\n";
-	std::cout << "B sparse? " << (m3.IsSparse() ? "True" : "False") << "\n";
-	std::cout << "==================================================\n";
+	IO::out << "TEST 2:\n";
+	IO::out << "A:\n" << m2 << "\n";
+	IO::out << "B:\n" << m3 << "\n";
+	IO::out << "A+B=\n" << *(m2*m3) << "\n";
+	IO::out << "A-B=\n" << *(m2*m3) << "\n";
+	IO::out << "A*B=\n" << *(m2*m3) << "\n";
+	IO::out << "A sparse? " << (m2.IsSparse() ? "True" : "False") << "\n";
+	IO::out << "B sparse? " << (m3.IsSparse() ? "True" : "False") << "\n";
+	IO::out << "==================================================\n";
 }
 
 Matrix::Matrix(const int width, const int height) : width(width), height(height)
