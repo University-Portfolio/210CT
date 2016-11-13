@@ -32,7 +32,7 @@ namespace TASK_7
 	};
 	
 
-	struct Path 
+	class Path 
 	{
 	private:
 		int size = 0;
@@ -63,7 +63,7 @@ namespace TASK_7
 		void Print(class Maze& maze);
 	};
 
-	struct Maze
+	class Maze
 	{
 	public:
 		const int width, height;

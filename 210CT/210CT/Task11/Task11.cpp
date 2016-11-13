@@ -1,7 +1,6 @@
 #include "Task11.h"
-#include <iostream>
+#include "../IO.h"
 #include <fstream>
-#include "../Definitions.h"
 
 using namespace TASK_11;
 
@@ -45,7 +44,7 @@ Node* TASK_11::GenerateBSTFromCsv(std::string& file_path)
 
 	if (!file.is_open())
 	{
-		std::cout << "Invalid path!\n";
+		IO::out << "Invalid path!\n";
 		return nullptr;
 	}
 
@@ -56,6 +55,10 @@ Node* TASK_11::GenerateBSTFromCsv(std::string& file_path)
 
 	while (file.get(c))
 	{
+		//Convert to lower case
+		if (c >= 65 && c <= 90)
+			c += 32;
+
 		if (c == ',')
 			reading_word = false;
 		else if (c == '\r' || c == '\n')
@@ -64,7 +67,7 @@ Node* TASK_11::GenerateBSTFromCsv(std::string& file_path)
 			{
 				const int count = std::stoi(current_count);
 				Node* node = new Node(Word(current_word, count));
-				LOG("Adding node: " << current_word << ":" << count);
+				IO::out_debug << "Adding node: " << current_word << ":" << count << '\n';
 
 				if (!root_node)
 					root_node = node;
@@ -90,7 +93,7 @@ Node* TASK_11::GenerateBSTFromCsv(std::string& file_path)
 	{
 		const int count = std::stoi(current_count);
 		Node* node = new Node(Word(current_word, count));
-		LOG("Adding node: " << current_word << ":" << count);
+		IO::out_debug << "Adding node: " << current_word << ":" << count << '\n';
 
 		if (!root_node)
 			root_node = node;
@@ -109,7 +112,7 @@ Node* TASK_11::GenerateBSTFromTxt(std::string& file_path)
 
 	if (!file.is_open())
 	{
-		std::cout << "Invalid path!\n";
+		IO::out << "Invalid path!\n";
 		return nullptr;
 	}
 
@@ -118,12 +121,16 @@ Node* TASK_11::GenerateBSTFromTxt(std::string& file_path)
 
 	while (file.get(c))
 	{
+		//Convert to lower case
+		if (c >= 65 && c <= 90)
+			c += 32;
+
 		if (c == ' ' || c == '\n' || c == '\r' || c == '.' || c == ';' || c == ':' || c == ',' || c == '(' || c == ')')
 		{
 			if (current_word.size())
 			{
 				Node* node = new Node(Word(current_word));
-				LOG("Adding node:" << current_word);
+				IO::out_debug << "Adding node:" << current_word << '\n';
 
 				if (!root_node)
 					root_node = node;
@@ -140,7 +147,7 @@ Node* TASK_11::GenerateBSTFromTxt(std::string& file_path)
 	if (current_word.size())
 	{
 		Node* node = new Node(Word(current_word));
-		LOG("Adding node:" << current_word);
+		IO::out_debug << "Adding node:" << current_word << '\n';
 
 		if (!root_node)
 			root_node = node;
@@ -154,7 +161,7 @@ Node* TASK_11::GenerateBSTFromTxt(std::string& file_path)
 uint Node::Count(std::string& string, const bool report/*= false*/)
 {
 	if (report)
-		std::cout << "['" << string << "':Search] Visited '" << word.string << "' node\n";
+		IO::out << "['" << string << "':Search] Visited '" << word.string << "' node\n";
 
 	if (*this == string)
 		return this->word.count;
@@ -183,7 +190,7 @@ void Node::PrintInOrder()
 	if (lhs_child)
 		lhs_child->PrintInOrder();
 
-	std::cout << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << "':" << word.count << ", ";
 
 	if (rhs_child)
 		rhs_child->PrintInOrder();
@@ -191,7 +198,7 @@ void Node::PrintInOrder()
 
 void Node::PrintPreOrder()
 {
-	std::cout << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << "':" << word.count << ", ";
 
 	if (lhs_child)
 		lhs_child->PrintPreOrder();
@@ -208,19 +215,19 @@ void Node::PrintPostOrder()
 	if (rhs_child)
 		rhs_child->PrintPostOrder();
 
-	std::cout << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << "':" << word.count << ", ";
 }
 
 
 void TASK_11::Execute() 
 {
 	bool read_csv;
-	std::cout << "Input can either be from a .csv where each entry is word,count \nor it can be raw text.\n";
+	IO::out << "Input can either be from a .csv where each entry is word,count \nor it can be raw text.\n";
 
 	{
-		std::cout << "Would you like to read from a .csv (Y/N)? ";
+		IO::out << "Would you like to read from a .csv (Y/N)? ";
 		char input;
-		std::cin >> input;
+		IO::in >> input;
 		read_csv = input == 'Y' || input == 'y' ? 1 : 0;
 	}
 
@@ -230,20 +237,16 @@ void TASK_11::Execute()
 	if (read_csv)
 	{
 		std::string file_path;
-		std::cout << "Please input path to csv file:\n";
-
-		std::cin.get();//Clear
-		std::getline(std::cin, file_path);
+		IO::out << "Please input path to csv file:\n";
+		IO::in >> file_path;
 
 		root_node = GenerateBSTFromCsv(file_path);
 	}
 	else 
 	{
 		std::string file_path;
-		std::cout << "Please input path to raw text file:\n";
-
-		std::cin.get();//Clear
-		std::getline(std::cin, file_path);
+		IO::out << "Please input path to raw text file:\n";
+		IO::in >> file_path;
 
 		root_node = GenerateBSTFromTxt(file_path);
 	}
@@ -251,17 +254,21 @@ void TASK_11::Execute()
 	if (!root_node) //Could not be set(Invalid file/format)
 		return;
 
-	std::string word = "10";
-	std::cout << "Count for '" << word << "' is " << root_node->Count(word, true) << '\n';
+	std::string word;
+	IO::out << "What word would you like to look for? ";
+	IO::in >> word;
 
-	std::cout << "Tree (PreOrder):\n";
+	IO::out << "Count for '" << word << "' is " << root_node->Count(word, true) << '\n';
+
+	IO::out << "\nTree (PreOrder):\n";
 	root_node->PrintPreOrder();
 
-	std::cout << "Tree (PostOrder):\n";
+	IO::out << "\nTree (PostOrder):\n";
 	root_node->PrintPostOrder();
 
-	std::cout << "Tree (InOrder):\n";
+	IO::out << "\nTree (InOrder):\n";
 	root_node->PrintInOrder();
+	IO::out << '\n';
 
 	delete root_node;
 }

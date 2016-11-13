@@ -15,7 +15,7 @@ void TASK_10::Execute()
 	{
 		Child* last_child = nullptr;
 
-		IO::out << "Input names of each child:\n";
+		IO::out << "Input names of each child: \n";
 		for (int i = 0; i < n; i++)
 		{
 			std::string name;
