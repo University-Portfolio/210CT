@@ -190,7 +190,7 @@ void Node::PrintInOrder()
 	if (lhs_child)
 		lhs_child->PrintInOrder();
 
-	IO::out << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << ", ";
 
 	if (rhs_child)
 		rhs_child->PrintInOrder();
@@ -198,7 +198,7 @@ void Node::PrintInOrder()
 
 void Node::PrintPreOrder()
 {
-	IO::out << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << ", ";
 
 	if (lhs_child)
 		lhs_child->PrintPreOrder();
@@ -215,7 +215,7 @@ void Node::PrintPostOrder()
 	if (rhs_child)
 		rhs_child->PrintPostOrder();
 
-	IO::out << "'" << word.string << "':" << word.count << ", ";
+	IO::out << "'" << word.string << ", ";
 }
 
 
@@ -260,14 +260,25 @@ void TASK_11::Execute()
 
 	IO::out << "Count for '" << word << "' is " << root_node->Count(word, true) << '\n';
 
-	IO::out << "\nTree (PreOrder):\n";
-	root_node->PrintPreOrder();
+	IO::out << "How would you like to print the tree?\n(InOrder = 0, PreOrder = 1, PostOrder = 2, Any other number to skip)";
+	int order;
+	IO::in >> order;
 
-	IO::out << "\nTree (PostOrder):\n";
-	root_node->PrintPostOrder();
-
-	IO::out << "\nTree (InOrder):\n";
-	root_node->PrintInOrder();
+	switch (order)
+	{
+	case 0:
+		IO::out << "\nTree (InOrder):\n";
+		root_node->PrintInOrder();
+		break;
+	case 1:
+		IO::out << "\nTree (PreOrder):\n";
+		root_node->PrintPreOrder();
+		break;
+	case 2:
+		IO::out << "\nTree (PostOrder):\n";
+		root_node->PrintPostOrder();
+		break;
+	}
 	IO::out << '\n';
 
 	delete root_node;

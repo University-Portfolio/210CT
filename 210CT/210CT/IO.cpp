@@ -14,7 +14,7 @@ namespace IO
 
 using namespace IO;
 
-inline void PrintStartLine() { std::cout << g_Task << ":~$ "; }
+inline void PrintStartLine() { std::cout << "[" << g_Task << "]:"; }
 
 float In::ReadFloat()
 {
