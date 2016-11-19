@@ -10,7 +10,7 @@ The resulted matrix will be displayed in natural form.
 
 namespace TASK_9
 {
-	class Matrix //Squares
+	class Matrix 
 	{
 	private:
 		float** raw_data;

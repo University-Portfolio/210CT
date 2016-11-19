@@ -7,6 +7,9 @@ using namespace TASK_2;
 
 void TASK_2::Execute() 
 {
+	/*
+		Test cases with hard coded values
+	*/
 	Matrix m0(3, 2);
 	m0[0][0] = 1;
 	m0[1][0] = 2;
@@ -167,6 +170,13 @@ void Matrix::operator*=(float factor)
 
 Matrix::operator const char *()
 {
+	/*
+		Retrive string in format
+		/0 0 0\
+		|0 0 0|
+		\0 0 0/
+	*/
+
 	std::stringstream ss;
 
 	for (int y = 0; y < height; y++)

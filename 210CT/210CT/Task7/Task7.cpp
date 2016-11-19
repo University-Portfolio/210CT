@@ -6,11 +6,18 @@
 
 using namespace TASK_7;
 
+bool Path::Contains(Coord coord)
+{
+	for (Node& n : stack)
+		if (n.coord == coord)
+			return true;
+	return false;
+}
 
 void Path::Print(Maze& maze)
 {
-	for (int i = 0; i < size; i++)
-		IO::out << "(" << (stack[i].x + 1) << "," << (maze.height - stack[i].y) << ")->";
+	for (int i = 0; i < stack.size(); i++)
+		IO::out << (i==0?"":"->") << "(" << (stack[i].coord.x + 1) << "," << (maze.height - stack[i].coord.y) << ")";
 	IO::out << '\n';
 }
 
@@ -64,46 +71,94 @@ void Maze::Parse(const std::string& raw_input)
 void Maze::PrintAllPaths() 
 {
 	Path path;
-	path.Push(person);
-	Visit(person);
-	
+	path.Push(Node(person));
 
-	while (path.Size())
+	while (!path.IsEmpty())
 	{
-		Coord current = path.Pop();
-		const Coord check[]{ current + Coord(0, 1),current + Coord(0, -1), current + Coord(-1, 0), current + Coord(1, 0) };
-		bool moved = false;
+		Node current_node = path.Pop();
+		bool found_next = false;
 
-		for (const Coord coord : check)
+		//Search adjacent tiles
+		while (!found_next && current_node.search_index < 4)
 		{
-			//LOG("Check (" << coord.x << "," << coord.y << ")");
-			//LOG("\tValid:" << IsValid(coord));
-			//LOG("\tVisited:" << Visited(coord));
-
-			if (IsValid(coord) && !Visited(coord))
+			switch (current_node.search_index++)
 			{
-				//LOG("Adding (" << coord.x << "," << coord.y << ")");
-
-				Visit(coord);
-				path.Push(current);
-				path.Push(coord);
-				if (IsExit(coord))
+			case 0: //Up
+				if (current_node.from_index != 2)
 				{
-					IO::out << "=================================\n";
-					IO::out_debug << "Solution found at (" << coord.x << "," << coord.y << ")\n";
-					Print(true, &path);
-					path.Print(*this);
-					IO::out << '\n';
+					Coord next(current_node.coord.x, current_node.coord.y + 1);
+					if (!path.Contains(next) && IsValid(next))
+					{
+						found_next = true;
+						path.Push(current_node);
+						path.Push(Node(next, 0));
+						
+						if (IsExit(next))
+						{
+							Print(true, &path);
+							path.Print(*this);
+						}
+					}
 				}
-				moved = true;
+				break;
+
+			case 1: //Right
+				if (current_node.from_index != 3)
+				{
+					Coord next(current_node.coord.x + 1, current_node.coord.y);
+					if (!path.Contains(next) && IsValid(next))
+					{
+						found_next = true;
+						path.Push(current_node);
+						path.Push(Node(next, 1));
+
+						if (IsExit(next))
+						{
+							Print(true, &path);
+							path.Print(*this);
+						}
+					}
+				}
+				break;
+
+			case 2: //Down
+				if (current_node.from_index != 0)
+				{
+					Coord next(current_node.coord.x, current_node.coord.y - 1);
+					if (!path.Contains(next) && IsValid(next))
+					{
+						found_next = true;
+						path.Push(current_node);
+						path.Push(Node(next, 2));
+
+						if (IsExit(next))
+						{
+							Print(true, &path);
+							path.Print(*this);
+						}
+					}
+				}
+				break;
+
+			case 3: //Left
+				if (current_node.from_index != 1)
+				{
+					Coord next(current_node.coord.x - 1, current_node.coord.y);
+					if (!path.Contains(next) && IsValid(next))
+					{
+						found_next = true;
+						path.Push(current_node);
+						path.Push(Node(next, 3));
+
+						if (IsExit(next))
+						{
+							Print(true, &path);
+							path.Print(*this);
+						}
+					}
+				}
 				break;
 			}
-		}
-
-		if (!moved)
-		{
-			//LOG("Removing (" << current.x << "," << current.y << ")");
-			//Unvisit(current);
 		}
 	}
 

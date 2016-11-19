@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iterator>
+#include <vector>
 
 /**
 TASK (Advanced)
@@ -17,9 +18,8 @@ namespace TASK_7
 {
 	void Execute();
 
-	class Coord
+	struct Coord
 	{
-	public:
 		int x, y;
 
 		Coord() : x(0), y(0) {};
@@ -31,36 +31,29 @@ namespace TASK_7
 		inline void operator=(Coord& other) { x = other.x; y = other.y; }
 	};
 	
+	struct Node 
+	{
+		Coord coord;
+
+		//Index refers to direction e.g. 0 left, 1 down, 2 right, 3 up
+		int search_index = 0;
+		int from_index;
+
+		Node(Coord coord, int from_index = -1) : coord(coord), from_index(from_index) {};
+	};
 
 	class Path 
 	{
 	private:
-		int size = 0;
-		const int capacity = 256;
-		Coord* stack;
-
+		std::vector<Node> stack; //Acts almost like a stack, but we have to be able to print without removing everything
 	public:
-		Path() 
-		{
-			stack = new Coord[capacity];
-		}
-
-		~Path() { delete[] stack; }
-
-		inline const int Size() { return size; }
-
-		void Push(Coord node) { stack[size++] = node; }
-		Coord& Pop() { Coord node = stack[--size]; return node; }
-
-		bool Contains(Coord node)
-		{
-			for (int i = 0; i < size; i++)
-				if (stack[i] == node)
-					return true;
-			return false;
-		}
-
 		void Print(class Maze& maze);
+
+		inline Node Pop() { Node v = stack[stack.size() - 1]; stack.pop_back(); return v; }
+		inline void Push(Node node) { stack.push_back(node); }
+		
+		bool Contains(Coord coord);
+		inline bool IsEmpty() { return !stack.size(); }
 	};
 
 	class Maze
@@ -71,7 +64,6 @@ namespace TASK_7
 
 	private:
 		bool** walls;
-		bool** visited;
 
 	public:
 		Maze(const int n, const int m) : width(n), height(m)
@@ -79,10 +71,6 @@ namespace TASK_7
 			walls = new bool*[n];
 			for (int i = 0; i < m; i++)
 				walls[i] = new bool[m];
-
-			visited = new bool*[n];
-			for (int i = 0; i < m; i++)
-				visited[i] = new bool[m] {0};
 		}
 
 		void Parse(const std::string& raw_input);
@@ -90,10 +78,6 @@ namespace TASK_7
 		inline bool* operator[](const int i) { return walls[i]; }
 		void Print(const bool print_person = true, Path* path = nullptr) const;
 		void PrintAllPaths();
-
-		inline void Visit(const Coord coord) { visited[coord.x][coord.y] = true; }
-		inline void Unvisit(const Coord coord) { visited[coord.x][coord.y] = false; }
-		inline bool Visited(const Coord coord) { return visited[coord.x][coord.y]; }
 
 		inline bool IsValid(const Coord coord) { return (coord.x >= 0 && coord.x < width && coord.y >= 0 && coord.y < height) && !walls[coord.x][coord.y]; }
 		inline bool IsExit(const Coord coord) { return !walls[coord.x][coord.y] && (coord.x == 0 || coord.y == 0 || coord.x == width - 1 || coord.y == height - 1); }
@@ -103,10 +87,6 @@ namespace TASK_7
 			for (int i = 0; i < width; i++)
 				delete[] walls[i];
 			delete[] walls;
-
-			for (int i = 0; i < width; i++)
-				delete[] visited[i];
-			delete[] visited;
 		}
 
 	};

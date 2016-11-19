@@ -158,7 +158,7 @@ void RandomlyPopulate(Cubes& cubes, const int amount)
 }
 
 /**
-Perform Dijkstra's algorithm to find longest(largest path) from source to sink
+Find longest(largest path) from source to sink
 
 @param	source		The source node
 @param	sink		The sink node
@@ -262,7 +262,7 @@ Finds the largest possible stack that can be made
 
 @return	whether a solution is found
 **/
-bool StoreSolution(Cubes& cubes, Cubes& solution, int& solution_amount)
+bool GetSolution(Cubes& cubes, Cubes& solution, int& solution_amount)
 {
 	//Generate all key nodes
 	Nodes nodes;
@@ -332,7 +332,7 @@ void TASK_6::Execute()
 	Cubes solution;
 	int solution_amount;
 
-	if (StoreSolution(cubes, solution, solution_amount))
+	if (GetSolution(cubes, solution, solution_amount))
 	{
 		IO::out << "Solution found of height " << solution_amount << ":\n";
 		Print(solution, 1);
