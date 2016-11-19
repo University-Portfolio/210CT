@@ -18,9 +18,9 @@ int main(char** arg_v, int arg_c)
 	IO::g_Task = "Home";
 	IO::out << "210CT Coursework - Samuel Potter\n";
 
-	IO::g_Task = "Task12";
-	IO::out << "Launching Task 12\n";
-	TASK_7::Execute();
+	IO::g_Task = "Task6";
+	IO::out << "Launching Task 6\n";
+	TASK_6::Execute();
 
 	IO::g_Task = "Home";
 	IO::out << "Done!\n";
