@@ -171,13 +171,69 @@ void RandomlyPopulate(CubeStack& cube_stack, const int amount)
 
 void TASK_6::Execute() 
 {
-	IO::out << "How many cubes: ";
-	int n;
-	IO::in >> n;
+	IO::out << "Would you like to randomly generate the cubes? (y/n) ";
+	char random;
+	IO::in >> random;
 
 	CubeStack cube_stack;
-	RandomlyPopulate(cube_stack, n);
-	IO::out << "Generated Cubes:\n";
+
+	if (random == 'y' || random == 'Y')
+	{
+		IO::out << "How many cubes: ";
+		int n;
+		IO::in >> n;
+		RandomlyPopulate(cube_stack, n);
+	}
+	else 
+	{
+		IO::out << "Input a number then a character for each cube(Colours are Red, Green, Blue, Yellow). Onces finsihed, type '0'\n\te.g. '100' then 'r' for a red cube of size 100\n";
+
+		int size;
+		char colour;
+
+		while (true)
+		{
+			IO::in >> size;
+			if (!size)
+				break;
+
+			IO::in >> colour;
+			if (colour == '0')
+				break;
+
+			//Convert into lowercase
+			if (colour < 97)
+				colour += 32;
+
+			switch (colour)
+			{
+			case 'r':
+				cube_stack.Add(Cube(size, RED));
+				break;
+
+			case 'g':
+				cube_stack.Add(Cube(size, GREEN));
+				break;
+
+			case 'y':
+				cube_stack.Add(Cube(size, YELLOW));
+				break;
+
+			case 'b':
+				cube_stack.Add(Cube(size, BLUE));
+				break;
+
+			default:
+				IO::out << "Character '" << colour << "' is not associated with any colour.\n";
+				break;
+			}
+		}
+
+
+	}
+
+
+	IO::out << "All Cubes:\n";
 	cube_stack.Print();
 
 	CubeTower tower = cube_stack.GetLargestTower();
