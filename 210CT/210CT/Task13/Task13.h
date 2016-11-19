@@ -7,18 +7,17 @@
 /**
 TASK (Advanced)
 
-Implement the structure for an unweighted, undirected graph G, where nodes consist of positive integers. 
-Also, implement a function isPath(v, w), where v and w are vertices in the graph, to check if there is a path between the two nodes. 
-The path found will be printed to a text file as a sequence of integer numbers (the node values).
+Using the graph structure previously implemented, implement a function isConnected(G) to check whether or not the graph is strongly connected. 
+The output should be simply 'yes' or 'no'.
 **/
 
 
-namespace TASK_12
+namespace TASK_13
 {
 	typedef unsigned int uint;
 
 	//Unweighted but not strictly undirected (Must be handled on input)
-	class Graph 
+	class Graph
 	{
 	private:
 		std::unordered_map<uint, std::set<uint>> adjacency_table;
@@ -26,13 +25,15 @@ namespace TASK_12
 
 	public:
 		inline void CreateNode(uint key, std::set<uint> neighbours) { adjacency_table[key] = neighbours; }
-		inline std::set<uint>& GetNeighbours(uint key) { return adjacency_table[key]; }
+		inline std::set<uint> GetNeighbours(uint key) { return adjacency_table[key]; }
 		bool AreNeighbours(uint v, uint w);
 
-		bool IsPath(uint v, uint w, std::vector<uint>& out);
+		bool IsStronglyConnected();
+
+		bool IsPath(uint v, uint w);
 		inline const uint GetLargestNode() { return largest_node; }
 	private:
-		bool IsPath(uint v, uint w, std::vector<uint>& out, bool* visited);
+		bool IsPath(uint v, uint w, bool* visited);
 
 	public:
 		static Graph Construct(std::string file_path);

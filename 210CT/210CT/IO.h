@@ -7,6 +7,7 @@ namespace IO
 	{
 	private:
 		int ReadInt();
+		int ReadUnsignedInt();
 		float ReadFloat();
 
 		char ReadChar();
@@ -14,6 +15,7 @@ namespace IO
 
 	public:
 		inline void operator>>(int& i) { i = ReadInt(); }
+		inline void operator>>(unsigned int& i) { i = ReadUnsignedInt(); }
 		inline void operator>>(float& i) { i = ReadFloat(); }
 		inline void operator>>(char& i) { i = ReadChar(); }
 		inline void operator>>(std::string& i) { i = ReadString(); }

@@ -11,6 +11,7 @@
 #include "Task10\Task10.h"
 #include "Task11\Task11.h"
 #include "Task12\Task12.h"
+#include "Task13\Task13.h"
 
 int main(char** arg_v, int arg_c)
 {

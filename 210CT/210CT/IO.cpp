@@ -5,7 +5,7 @@
 
 namespace IO
 {
-	bool g_DebugLog = false;
+	bool g_DebugLog = true;
 	std::string g_Task;
 	In in;
 	Out out;
@@ -44,6 +44,19 @@ int In::ReadInt()
 	}
 
 	return int(in);
+}
+
+int In::ReadUnsignedInt()
+{
+	int in = ReadInt();
+
+	while (in < 0)
+	{
+		IO::out << "Invalid input\n";
+		in = ReadInt();
+	}
+
+	return unsigned int(in);
 }
 
 std::string In::ReadString()

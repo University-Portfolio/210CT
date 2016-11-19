@@ -1,19 +1,18 @@
-#include "Task12.h"
+#include "Task13.h"
 #include <fstream>
 #include "../IO.h"
 
 
-using namespace TASK_12;
+using namespace TASK_13;
 
 
 bool Graph::AreNeighbours(uint v, uint w)
 {
-	std::set<uint>& v_n = adjacency_table[v];
-	std::set<uint>& w_n = adjacency_table[w];
+	std::set<uint> v_n = GetNeighbours(v);
+	std::set<uint> w_n = GetNeighbours(w);
 
 	if (v_n.find(w) != v_n.end())
 		return true;
-
 	//Check other way round (Only matters in weighted graph)
 	else if (w_n.find(v) != w_n.end())
 		return true;
@@ -21,41 +20,36 @@ bool Graph::AreNeighbours(uint v, uint w)
 	return false;
 }
 
-bool Graph::IsPath(uint v, uint w, std::vector<uint>& out)
+bool Graph::IsPath(uint v, uint w)
 {
 	bool* visited = new bool[largest_node + 1]{false};
-	bool answer = IsPath(v, w, out, visited);
+	bool answer = IsPath(v, w, visited);
 	delete[] visited;
 	return answer;
 }
 
-bool Graph::IsPath(uint v, uint w, std::vector<uint>& out, bool* visited) 
+bool Graph::IsPath(uint v, uint w, bool* visited)
 {
 	if (AreNeighbours(v, w))
-	{
-		out.push_back(v);
-		out.push_back(w);
 		return true;
-	}
 
-	out.push_back(v);
 	for (uint n : GetNeighbours(v))
 	{
 		if (!visited[n])
 		{
 			visited[n] = true;
-			if (IsPath(n, w, out, visited))
+			if (IsPath(n, w, visited))
 				return true;
 			else
 				visited[n] = false;
 		}
 	}
-	out.pop_back();
 
 	return false;
 }
 
-Graph Graph::Construct(std::string file_path) 
+
+Graph Graph::Construct(std::string file_path)
 {
 	Graph g;
 
@@ -103,7 +97,23 @@ Graph Graph::Construct(std::string file_path)
 	return g;
 }
 
-void TASK_12::Execute()
+bool Graph::IsStronglyConnected()
+{
+	for (uint v = 1; v <= largest_node; v++)
+		for (uint w = 1; w <= largest_node; w++)
+		{
+			IO::out_debug << "Checking " << w << "-" << v << '\n';
+			if (w != v && !IsPath(w, v))
+			{
+				IO::out_debug << "No path for " << w << "-" << v << '\n';
+				return false;
+			}
+		}
+
+	return true;
+}
+
+void TASK_13::Execute()
 {
 	std::string file_path;
 	IO::out << "Input the graph file path (File should be in matrix format where 1 is arc and 0 is no connection):\n";
@@ -111,48 +121,8 @@ void TASK_12::Execute()
 
 	Graph g = Graph::Construct(file_path);
 
-	uint v, w;
-	std::vector<uint> path;
-
-	IO::out << "Which 2 nodes would you like to find a path for?\n";
-	IO::in >> v;
-	while (v > g.GetLargestNode())
-	{
-		IO::out << "Cannot be greater than " << g.GetLargestNode() << "\n";
-		IO::in >> v;
-	}
-
-	IO::in >> w;
-	while (w > g.GetLargestNode())
-	{
-		IO::out << "Cannot be greater than " << g.GetLargestNode() << "\n";
-		IO::in >> w;
-	}
-	
-	bool path_found = g.IsPath(v, w, path);
-
-
-	if (path_found)
-	{
-		IO::out << "Path found\n";
-
-		IO::out << "Path:\n\t";
-		for (uint& i : path)
-			IO::out << i << ",";
-		IO::out << "\n";  
-
-		//Write to file
-		std::ofstream file("t12_output.txt");
-		file.clear();
-
-		for (uint& i : path)
-			file << i << ",";
-		file.close();
-		IO::out << "Path written to t12_output.txt\n";
-	}
-	else if(v == w)
-		IO::out << "No additional path found.";
+	if (g.IsStronglyConnected())
+		IO::out << "Yes; Graph is strongly connected.\n";
 	else
-		IO::out << "No path found.";
-
+		IO::out << "No; Graph is not strongly connected.\n";
 }
