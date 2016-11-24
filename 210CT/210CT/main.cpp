@@ -12,15 +12,16 @@
 #include "Task11\Task11.h"
 #include "Task12\Task12.h"
 #include "Task13\Task13.h"
+#include "Task14\Task14.h"
 
 int main(char** arg_v, int arg_c)
 {
 	IO::g_Task = "Home";
 	IO::out << "210CT Coursework - Samuel Potter\n";
 
-	IO::g_Task = "Task6";
-	IO::out << "Launching Task 6\n";
-	TASK_6::Execute();
+	IO::g_Task = "Task14";
+	IO::out << "Launching Task 14\n";
+	TASK_14::Execute();
 
 	IO::g_Task = "Home";
 	IO::out << "Done!\n";
