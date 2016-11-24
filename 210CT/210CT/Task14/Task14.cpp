@@ -148,7 +148,7 @@ void Node::PrintPreOrder(std::string tab)
 void TASK_14::Execute() 
 {
 	std::string file_path;
-	IO::out << "Input the square graph file path (File should be in matrix comma separated format where entry is arc and '' is no connection):\n";
+	IO::out << "Input the square graph file path \n(File should be in matrix comma separated format where entry is arc and '' is no connection):\n";
 	IO::out << "e.g.\t0, 1, 0, 10, 0\n";
 	IO::out << "\t0, 1, 0, 2, 0\n";
 	IO::out << "\t3, 1, 8, 0, 0\n";
