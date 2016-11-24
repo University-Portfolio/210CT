@@ -154,8 +154,7 @@ void TASK_14::Execute()
 	IO::out << "\t3, 1, 8, 0, 0\n";
 	IO::out << "\t0, 1, 0, 0, 5\n";
 	IO::out << "\t3, 1, 0, 3, 0\n";
-	//IO::in >> file_path;
-	file_path = "H:\\210CT - Programming\\Portfolio\\210CT\\210CT\\Task14\\input.txt";
+	IO::in >> file_path;
 
 	Graph g = Graph::Construct(file_path);
 	IO::out << "Input:\n";
