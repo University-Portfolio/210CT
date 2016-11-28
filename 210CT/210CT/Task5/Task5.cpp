@@ -43,7 +43,7 @@ void TASK_5::Execute()
 
 	if (g0 == 0.0f && g1 == 0.0f) 
 	{
-		IO::out << "Error: gradients of both equations are 0, " << (b == d ? "They cross infinitly\n" : "They never cross\n");
+		IO::out << "Error: gradients of both equations are 0, " << (b == d ? "They cross infinitely\n" : "They never cross\n");
 		return;
 	}
 
