@@ -11,6 +11,14 @@ its maximum cost spanning tree. The output should be the preorder and inorder
 traversal of the tree. Describe the running time of this algorithm.
 **/
 
+/**
+The implementation has 3 nested for loops that go through the length of the array
+so has O(n^3).
+
+The 3rd for loop will not run most of the time however, so it would be slightly lower
+in actuallality. (However is still not great as Prims Algorithm is greedy)
+**/
+
 
 namespace TASK_14
 {
