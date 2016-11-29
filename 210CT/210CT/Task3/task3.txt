@@ -6,7 +6,8 @@ a) The string that contains all the elements belonging to both strings.
 b) The string of all the elements of the two given strings, written once.
 c) The string of the elements from the first string, without the elements that are also
 in the second string.
-What's the run time?
+What's the run time?
+
 **/
 
 a.
@@ -38,6 +39,7 @@ FUNCTION StringUnion(string_n, string_m)
 
 	FOR EACH number IN string_n AND string_m DO
 		PUT number IN output
+	END FOR
 
 	RETURN output
 END FUNCTION
