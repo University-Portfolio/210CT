@@ -6,9 +6,10 @@
 /**
 TASK (Advanced)
 
-Consider the structure of a undirected weighed graph. Implement an algorithm to find
-its maximum cost spanning tree. The output should be the preorder and inorder
-traversal of the tree. Describe the running time of this algorithm.
+Consider the structure of an undirected weighed graph. 
+Implement an algorithm to find its maximum cost spanning tree. 
+The output should be the pre-order and post-order traversal of the tree. 
+Describe the running time of this algorithm
 **/
 
 /**
@@ -16,7 +17,7 @@ The implementation has 3 nested for loops that go through the length of the arra
 so has O(n^3).
 
 The 3rd for loop will not run most of the time however, so it would be slightly lower
-in actuallality. (However is still not great as Prims Algorithm is greedy)
+in actuality. (However is still not great as Prims Algorithm is greedy)
 **/
 
 
@@ -57,8 +58,11 @@ namespace TASK_14
 
 		bool AddChild(Arc arc);
 
-		void PrintInOrder(std::string tab = "");
-		void PrintPreOrder(std::string tab = "");
+		void PrintPostOrder();
+		void PrintPreOrder();
+
+		void PrintPostOrderPretty(std::string tab = "");
+		void PrintPreOrderPretty(std::string tab = "");
 	};
 
 	class Graph //Square + Undirected

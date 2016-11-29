@@ -119,7 +119,16 @@ Node* Graph::GetMaximumSpanningTree()
 	return spanning_tree;
 }
 
-void Node::PrintInOrder(std::string tab)
+void Node::PrintPreOrder()
+{
+	IO::out << id << ", ";
+
+	if (children.size())
+		for (Branch& branch : children)
+			branch.node->PrintPreOrder();
+}
+
+void Node::PrintPreOrderPretty(std::string tab)
 {
 	IO::out << tab << (tab == "" ? " " : "|") << "(";
 	IO::out << (id < 10 ? " " : id < 100 ? " " : "") << id << (id < 10 ? " " : "");
@@ -127,16 +136,25 @@ void Node::PrintInOrder(std::string tab)
 
 	if (children.size())
 		for (Branch& branch : children)
-			branch.node->PrintInOrder(tab + "   ");
+			branch.node->PrintPreOrderPretty(tab + "   ");
 	else
 		IO::out << tab << "|\n";
 }
 
-void Node::PrintPreOrder(std::string tab)
+void Node::PrintPostOrder()
 {
 	if (children.size())
 		for (Branch& branch : children)
-			branch.node->PrintPreOrder(tab + "   ");
+			branch.node->PrintPostOrder();
+
+	IO::out << id << ", ";
+}
+
+void Node::PrintPostOrderPretty(std::string tab)
+{
+	if (children.size())
+		for (Branch& branch : children)
+			branch.node->PrintPostOrderPretty(tab + "   ");
 	else
 		IO::out << tab << "|\n";
 
@@ -161,10 +179,14 @@ void TASK_14::Execute()
 	g.Print();	
 
 	Node* spanning_tree = g.GetMaximumSpanningTree();
-	IO::out << "IN ORDER:\n";
-	spanning_tree->PrintInOrder();
+	IO::out << "POST ORDER:\n";
+	spanning_tree->PrintPostOrder();
+	IO::out << "\n";
+	spanning_tree->PrintPostOrderPretty();
 	IO::out << "\nPRE ORDER:\n";
 	spanning_tree->PrintPreOrder();
+	IO::out << "\n";
+	spanning_tree->PrintPreOrderPretty();
 
 	delete spanning_tree;
 }
