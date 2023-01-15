@@ -1,2 +1,2 @@
 # 210CT
-Samuel Potter repository for 210CT 
+Repository for 210CT 
